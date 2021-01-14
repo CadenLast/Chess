@@ -12,34 +12,34 @@ public class King extends Piece {
 		if ((Math.abs(x - this.x) == 1 && y - this.y == 0) || (x - this.x == 0 && Math.abs(y - this.y) == 1)
 				|| (Math.abs(x - this.x) == 1 && Math.abs(y - this.y) == Math.abs(x - this.x))) {
 			return true;
-		} else if ((x - this.x == -2 && y - this.y == 0 && color.equals("White"))&&!isCheck()) {
-			if (castle && Board.getSquare(0, 0).canCastle()) {
-				if (Board.getSquare(0, 0).canMove(2, 0, false) && !willBeCheck(2, 0) && !willBeCheck(1, 0)) {
-					castleKing();
+		} else if ((x - this.x == -2 && y - this.y == 0 && color.equals("Black"))&&!isCheck()) {
+			if (castle && Board.getSquare(0, 7).canCastle()) {
+				if (Board.getSquare(0, 7).canMove(3, 7, false) && !willBeCheck(3, 7) && !willBeCheck(2, 7)) {
+					castleQueen();
 					return false;
 				}
 			}
 			return false;
-		} else if ((x - this.x == -2 && y - this.y == 0 && color.equals("Black")&&!isCheck())) {
-			if (castle && Board.getSquare(0, 7).canCastle()) {
-				if (Board.getSquare(0, 7).canMove(2, 7, false) && !willBeCheck(2, 7) && !willBeCheck(1, 7)) {
-					castleKing();
+		} else if ((x - this.x == -2 && y - this.y == 0 && color.equals("White")&&!isCheck())) {
+			if (castle && Board.getSquare(0, 0).canCastle()) {
+				if (Board.getSquare(0, 0).canMove(3, 0, false) && !willBeCheck(3, 0) && !willBeCheck(2, 0)) {
+					castleQueen();
 					return false;
 				}
 			}
 			return false;
 		} else if ((x - this.x == 2 && y - this.y == 0 && color.equals("Black"))&&!isCheck()) {
 			if (castle && Board.getSquare(0, 7).canCastle()) {
-				if (Board.getSquare(7, 7).canMove(4, 7, false) && !willBeCheck(4, 7) && !willBeCheck(5, 7)) {
-					castleQueen();
+				if (Board.getSquare(7, 7).canMove(5, 7, false) && !willBeCheck(5, 7) && !willBeCheck(6, 7)) {
+					castleKing();
 					return false;
 				}
 			}
 			return false;
 		} else if ((x - this.x == 2 && y - this.y == 0 && color.equals("White"))&&!isCheck()) {
 			if (castle && Board.getSquare(7, 0).canCastle()) {
-				if (Board.getSquare(7, 0).canMove(4, 0, false) && !willBeCheck(4, 0) && !willBeCheck(5, 0)) {
-					castleQueen();
+				if (Board.getSquare(7, 0).canMove(5, 0, false) && !willBeCheck(5, 0) && !willBeCheck(6, 0)) {
+					castleKing();
 					return false;
 				}
 			}
@@ -51,82 +51,11 @@ public class King extends Piece {
 
 	public void castleQueen() {
 		if (color.equals("Black")) {
-			Piece rook = Board.getSquare(7, 7);
-			Board.setNull(x, y);
-			Board.setSquare(x + 2, y, this);
-			Board.setSquare(x + 1, y, rook);
-			Board.getSquare(x + 1, y).setX(x + 1);
-
-			Board.buttons[x][y].setIcon(new ImageIcon(""));
-			Board.buttons[x][y].invalidate();
-			Board.buttons[x][y].revalidate();
-			Board.buttons[x][y].repaint();
-			Board.setNull(x, y);
-			x+=2;
-			Board.buttons[x][y].setIcon(getIcon());
-			Board.buttons[x][y].invalidate();
-			Board.buttons[x][y].revalidate();
-			Board.buttons[x][y].repaint();
-			
-			Board.buttons[7][7].setIcon(new ImageIcon(""));
-			Board.buttons[7][7].invalidate();
-			Board.buttons[7][7].revalidate();
-			Board.buttons[7][7].repaint();
-			Board.setNull(7, 7);
-			Board.buttons[4][7].setIcon(Board.getSquare(x-1,y).getIcon());
-			Board.buttons[4][7].invalidate();
-			Board.buttons[4][7].revalidate();
-			Board.buttons[4][7].repaint();
-			if (Board.turn.equals("White")) {
-				Board.turn = "Black";
-			} else {
-				Board.turn = "White";
-			}
-			castle=false;
-		}
-		if (color.equals("White")) {
-			Piece rook = Board.getSquare(7, 0);
-			Board.setNull(x, y);
-			Board.setSquare(x + 2, y, this);
-			Board.setSquare(x + 1, y, rook);
-			Board.getSquare(x + 1, y).setX(x + 1);
-
-			Board.buttons[x][y].setIcon(new ImageIcon(""));
-			Board.buttons[x][y].invalidate();
-			Board.buttons[x][y].revalidate();
-			Board.buttons[x][y].repaint();
-			Board.setNull(x, y);
-			x+=2;
-			Board.buttons[x][y].setIcon(getIcon());
-			Board.buttons[x][y].invalidate();
-			Board.buttons[x][y].revalidate();
-			Board.buttons[x][y].repaint();
-			
-			Board.buttons[7][0].setIcon(new ImageIcon(""));
-			Board.buttons[7][0].invalidate();
-			Board.buttons[7][0].revalidate();
-			Board.buttons[7][0].repaint();
-			Board.setNull(7, 0);
-			Board.buttons[4][0].setIcon(Board.getSquare(x-1,y).getIcon());
-			Board.buttons[4][0].invalidate();
-			Board.buttons[4][0].revalidate();
-			Board.buttons[4][0].repaint();
-			if (Board.turn.equals("White")) {
-				Board.turn = "Black";
-			} else {
-				Board.turn = "White";
-			}
-			castle=false;
-		}
-	}
-
-	public void castleKing() {
-		if (color.equals("Black")) {
 			Piece rook = Board.getSquare(0, 7);
 			Board.setNull(x, y);
 			Board.setSquare(x - 2, y, this);
 			Board.setSquare(x - 1, y, rook);
-			Board.getSquare(x - 1, y).setX(x - 1);
+			rook.setX(x - 1);
 
 			Board.buttons[x][y].setIcon(new ImageIcon(""));
 			Board.buttons[x][y].invalidate();
@@ -144,10 +73,10 @@ public class King extends Piece {
 			Board.buttons[0][7].revalidate();
 			Board.buttons[0][7].repaint();
 			Board.setNull(0, 7);
-			Board.buttons[2][7].setIcon(Board.getSquare(x+1,y).getIcon());
-			Board.buttons[2][7].invalidate();
-			Board.buttons[2][7].revalidate();
-			Board.buttons[2][7].repaint();
+			Board.buttons[3][7].setIcon(Board.getSquare(3,y).getIcon());
+			Board.buttons[3][7].invalidate();
+			Board.buttons[3][7].revalidate();
+			Board.buttons[3][7].repaint();
 			if (Board.turn.equals("White")) {
 				Board.turn = "Black";
 			} else {
@@ -156,12 +85,12 @@ public class King extends Piece {
 			castle=false;
 		}
 		if (color.equals("White")) {
-			Piece rook = Board.getSquare(0, 0);
+			Piece rook = Board.getSquare(7, 0);
 			Board.setNull(x, y);
 			Board.setSquare(x - 2, y, this);
 			Board.setSquare(x - 1, y, rook);
-			Board.getSquare(x - 1, y).setX(x - 1);
-			
+			rook.setX(x - 1);
+
 			Board.buttons[x][y].setIcon(new ImageIcon(""));
 			Board.buttons[x][y].invalidate();
 			Board.buttons[x][y].revalidate();
@@ -178,10 +107,81 @@ public class King extends Piece {
 			Board.buttons[0][0].revalidate();
 			Board.buttons[0][0].repaint();
 			Board.setNull(0, 0);
-			Board.buttons[2][0].setIcon(Board.getSquare(x+1,y).getIcon());
-			Board.buttons[2][0].invalidate();
-			Board.buttons[2][0].revalidate();
-			Board.buttons[2][0].repaint();
+			Board.buttons[3][0].setIcon(Board.getSquare(3,y).getIcon());
+			Board.buttons[3][0].invalidate();
+			Board.buttons[3][0].revalidate();
+			Board.buttons[3][0].repaint();
+			if (Board.turn.equals("White")) {
+				Board.turn = "Black";
+			} else {
+				Board.turn = "White";
+			}
+			castle=false;
+		}
+	}
+
+	public void castleKing() {
+		if (color.equals("Black")) {
+			Piece rook = Board.getSquare(7, 7);
+			Board.setNull(x, y);
+			Board.setSquare(x + 2, y, this);
+			Board.setSquare(x + 1, y, rook);
+			rook.setX(x + 1);
+
+			Board.buttons[x][y].setIcon(new ImageIcon(""));
+			Board.buttons[x][y].invalidate();
+			Board.buttons[x][y].revalidate();
+			Board.buttons[x][y].repaint();
+			Board.setNull(x, y);
+			x+=2;
+			Board.buttons[x][y].setIcon(getIcon());
+			Board.buttons[x][y].invalidate();
+			Board.buttons[x][y].revalidate();
+			Board.buttons[x][y].repaint();
+			
+			Board.buttons[7][7].setIcon(new ImageIcon(""));
+			Board.buttons[7][7].invalidate();
+			Board.buttons[7][7].revalidate();
+			Board.buttons[7][7].repaint();
+			Board.setNull(7, 7);
+			Board.buttons[5][7].setIcon(Board.getSquare(5,y).getIcon());
+			Board.buttons[5][7].invalidate();
+			Board.buttons[5][7].revalidate();
+			Board.buttons[5][7].repaint();
+			if (Board.turn.equals("White")) {
+				Board.turn = "Black";
+			} else {
+				Board.turn = "White";
+			}
+			castle=false;
+		}
+		if (color.equals("White")) {
+			Piece rook = Board.getSquare(7, 0);
+			Board.setNull(x, y);
+			Board.setSquare(x + 2, y, this);
+			Board.setSquare(x + 1, y, rook);
+			rook.setX(x + 1);
+
+			Board.buttons[x][y].setIcon(new ImageIcon(""));
+			Board.buttons[x][y].invalidate();
+			Board.buttons[x][y].revalidate();
+			Board.buttons[x][y].repaint();
+			Board.setNull(x, y);
+			x+=2;
+			Board.buttons[x][y].setIcon(getIcon());
+			Board.buttons[x][y].invalidate();
+			Board.buttons[x][y].revalidate();
+			Board.buttons[x][y].repaint();
+			
+			Board.buttons[7][0].setIcon(new ImageIcon(""));
+			Board.buttons[7][0].invalidate();
+			Board.buttons[7][0].revalidate();
+			Board.buttons[7][0].repaint();
+			Board.setNull(7, 0);
+			Board.buttons[5][0].setIcon(Board.getSquare(5,y).getIcon());
+			Board.buttons[5][0].invalidate();
+			Board.buttons[5][0].revalidate();
+			Board.buttons[5][0].repaint();
 			if (Board.turn.equals("White")) {
 				Board.turn = "Black";
 			} else {

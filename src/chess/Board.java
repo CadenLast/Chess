@@ -333,6 +333,7 @@ public class Board {
 		moveList+=((char)(y1+49));
 		moveList+=((char)(x2+97));
 		moveList+=((char)(y2+49))+" ";
+		//System.out.println(moveList);
 	}
 
 	public static boolean isEmpty(int x, int y) {
